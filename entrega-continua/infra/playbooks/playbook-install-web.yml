@@ -1,0 +1,12 @@
+- hosts: web01, web02
+  become : yes
+  tasks:
+  - name: Install JDK
+    apt: name=default-jdk state=latest
+
+  - name: Add Oracle JDK Repository 
+    apt_repository: repo=ppa:webupd8team/java
+
+  - name: Install Oracle JDK
+    apt: name=oracle-java8-installer
+

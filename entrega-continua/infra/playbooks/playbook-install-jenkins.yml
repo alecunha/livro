@@ -1,6 +1,9 @@
-- hosts: 10.3.1.100
+- hosts: jenkins
   become : yes
   tasks:
+#  - name: Update APT Repository
+#    apt: update_cache=yes
+
   - name: Install JDK
     apt: name=default-jdk state=latest
 
@@ -8,7 +11,7 @@
     apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io.key state=present
 
   - name: Add Jenkins Repository 
-    apt_repository: repo='deb https://pkg.jenkins.io/debian-stable/binary/jenkins_2.7.1_all.deb'
+    apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/'
 
   - name: Install Jenkins
     apt: name=jenkins
