@@ -1,12 +1,21 @@
-- hosts: web01, web02
-  become : yes
+- hosts: homologacao, producao
+  #become : yes
   tasks:
   - name: Install JDK
-    apt: name=default-jdk state=latest
+    apt: 
+      name: default-jdk 
+      state: latest
+  
+  - name: Install Tomcat 7
+    apt:
+      name: tomcat7
 
-  - name: Add Oracle JDK Repository 
-    apt_repository: repo=ppa:webupd8team/java
+  - name: Start Tomcat
+    service:
+      name: tomcat7 
+      state: started
+    
 
-  - name: Install Oracle JDK
-    apt: name=oracle-java8-installer
+
+
 

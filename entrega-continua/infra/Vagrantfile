@@ -14,20 +14,23 @@ Vagrant.configure(2) do |config|
                               :ip => "10.3.1.100"
 
     jenkins_config.vm.provision :ansible do |ansible|
-      ansible.limit = "all"
       ansible.playbook = "playbooks/playbook-install-jenkins.yml"
     end
   end
 
-  config.vm.define :web01 do |web01_config|
-    web01_config.vm.hostname = "web01"
-    web01_config.vm.network :private_network,
+  config.vm.define :homologacao do |homologacao_config|
+    homologacao_config.vm.hostname = "homologacao"
+    homologacao_config.vm.network :private_network,
                             :ip => "10.3.1.101"
+
+    homologacao_config.vm.provision :ansible do |ansible|
+      ansible.playbook = "playbooks/playbook-install-web.yml"
+    end
   end
 
-  config.vm.define :web02 do |web02_config|
-    web02_config.vm.hostname = "web02"
-    web02_config.vm.network :private_network,
+  config.vm.define :producao do |producao_config|
+    producao_config.vm.hostname = "producao"
+    producao_config.vm.network :private_network,
     		            :ip => "10.3.1.102"
   end
 end
