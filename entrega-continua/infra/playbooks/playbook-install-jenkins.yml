@@ -4,8 +4,26 @@
   - name: Install JDK
     apt: name=default-jdk state=latest
 
-  - name: Install Jenkins
-    apt: 
-     deb: https://pkg.jenkins.io/debian-stable/binary/jenkins_2.7.1_all.deb
-     state: present
+  - apt_key:
+      url: "https://pkg.jenkins.io/debian-stable/jenkins.io.key"
+      state: present
 
+  - apt_repository:
+      repo: deb https://pkg.jenkins.io/debian-stable binary/
+      state: present
+
+  - apt:
+      name: jenkins
+      state: present
+
+#  - name: Install Jenkins
+#    apt:
+#      state: present
+#      deb: https://pkg.jenkins.io/debian-stable/binary/jenkins_2.7.1_all.deb
+#      
+  
+  - name: Install Maven
+    apt: name=maven state=latest
+
+  - name: Install Git
+    apt: name=git state=latest
