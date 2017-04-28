@@ -1,5 +1,5 @@
 - hosts: homologacao, producao
-  #become : yes
+  become : yes
   tasks:
   - name: Install JDK
     apt: 
