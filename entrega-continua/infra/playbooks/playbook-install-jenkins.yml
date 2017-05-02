@@ -1,8 +1,11 @@
 - hosts: jenkins
   become : yes
   tasks:
+  - apt_repository: 
+      repo: ppa:openjdk-r/ppa
+
   - name: Install JDK
-    apt: name=default-jdk state=latest
+    apt: name=openjdk-8-jdk state=latest update_cache=yes
 
   - apt_key:
       url: "https://pkg.jenkins.io/debian-stable/jenkins.io.key"
@@ -21,9 +24,26 @@
 #      state: present
 #      deb: https://pkg.jenkins.io/debian-stable/binary/jenkins_2.7.1_all.deb
 #      
-  
+  - name: Start Jenkins
+    service:
+      name: jenkins 
+      state: started
+
   - name: Install Maven
     apt: name=maven state=latest
 
   - name: Install Git
     apt: name=git state=latest
+
+  - name: Install Xvfb
+    apt: name=xvfb state=installed
+
+  - name: Install Firefox
+    apt: name=firefox 
+
+  - name: Install Geckodriver
+    unarchive: 
+      src: https://github.com/mozilla/geckodriver/releases/download/v0.16.1/geckodriver-v0.16.1-linux64.tar.gz
+      dest: /usr/bin
+      mode: a+x
+      remote_src: True
