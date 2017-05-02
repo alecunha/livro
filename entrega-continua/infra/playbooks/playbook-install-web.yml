@@ -5,11 +5,20 @@
     apt: 
       name: default-jdk 
       state: latest
+      update_cache: yes
+
   
   - name: Install Tomcat 7
     apt:
       name: tomcat7
-
+  
+  - name: Install Tomcat 7 Admin
+    apt:
+      name: tomcat7-admin
+  
+  - name: Configure Tomcat users
+    copy: src=tomcat-users.xml dest=/etc/tomcat7/tomcat-users.xml
+  
   - name: Start Tomcat
     service:
       name: tomcat7 
