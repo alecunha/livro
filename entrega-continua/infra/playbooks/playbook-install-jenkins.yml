@@ -3,9 +3,10 @@
   tasks:
   - apt_repository: 
       repo: ppa:openjdk-r/ppa
+      update_cache: yes
 
   - name: Install JDK
-    apt: name=openjdk-8-jdk state=latest update_cache=yes
+    apt: name=openjdk-8-jdk state=latest 
 
   - apt_key:
       url: "https://pkg.jenkins.io/debian-stable/jenkins.io.key"
