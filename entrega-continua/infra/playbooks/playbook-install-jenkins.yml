@@ -1,22 +1,26 @@
 - hosts: jenkins
   become : yes
   tasks:
-  - apt_repository: 
+  - name: Add OpenJDK Repository  
+    apt_repository: 
       repo: ppa:openjdk-r/ppa
       update_cache: yes
 
   - name: Install JDK
     apt: name=openjdk-8-jdk state=latest 
 
-  - apt_key:
+  - name: Add Jenkins ATP Key
+    apt_key:
       url: "https://pkg.jenkins.io/debian-stable/jenkins.io.key"
       state: present
 
-  - apt_repository:
+  - name: Add Jenkins APT Repository
+    apt_repository:
       repo: deb https://pkg.jenkins.io/debian-stable binary/
       state: present
 
-  - apt:
+  - name: Install Jenkins
+    apt:
       name: jenkins
       state: present
 
